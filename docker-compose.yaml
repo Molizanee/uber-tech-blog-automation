@@ -1,0 +1,37 @@
+services:
+  automation-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: uber-tech-automation
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./logs:/app/logs
+      - ./screenshots:/app/screenshots
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - BUN_ENV=development
+    env_file:
+      - .env
+    command: ["bun", "run", "dev"]
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+        reservations:
+          memory: 4G
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

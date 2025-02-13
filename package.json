@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "elysia": "^1.2.12",
+    "puppeteer": "^24.2.0",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  }
+}
